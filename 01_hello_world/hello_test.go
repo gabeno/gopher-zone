@@ -8,18 +8,19 @@ func TestHello(t *testing.T) {
 	t.Run("say hello with name", func(t *testing.T) {
 		got := Hello("Chris")
 		want := "Hello, Chris"
-
-		if got != want {
-			t.Errorf("got %q want %q", got, want)
-		}
+		assertCorrectMessage(t, got, want)
 	})
 
 	t.Run("say hello without name", func(t *testing.T) {
 		got := Hello("")
 		want := "Hello, World"
-
-		if got != want {
-			t.Errorf("got %q want %q", got, want)
-		}
+		assertCorrectMessage(t, got, want)
 	})
+}
+
+func assertCorrectMessage(t testing.TB, got, want string) {
+	t.Helper() // tells test suite this method is a helper
+	if got != want {
+		t.Errorf("got %q want %q", got, want)
+	}
 }
