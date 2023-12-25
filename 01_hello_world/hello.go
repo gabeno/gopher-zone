@@ -8,16 +8,18 @@ func Hello(name, language string) string {
 	if name == "" {
 		name = "World"
 	}
-	if language == "spanish" {
-		return "Hola, " + name
+
+	prefix := englishPrefix
+	switch language {
+	case "spanish":
+		prefix = "Hola, "
+	case "french":
+		prefix = "Bonjour, "
+	case "swahili":
+		prefix = "Hujambo, "
+
 	}
-	if language == "french" {
-		return "Bonjour, " + name
-	}
-	if language == "swahili" {
-		return "Hujambo, " + name
-	}
-	return englishPrefix + name
+	return prefix + name
 }
 func main() {
 	fmt.Println(Hello("world", ""))
