@@ -27,8 +27,8 @@ func TestSumAll(t *testing.T) {
 }
 
 func TestSumAllTails(t *testing.T) {
-	got := SumAllTails([]int{1, 2, 3}, []int{2, 3}, []int{1})
-	expected := []int{5, 3, 0}
+	got := SumAllTails([]int{1, 2, 3}, []int{2, 3}, []int{1}, []int{})
+	expected := []int{5, 3, 0, 0}
 
 	if !slices.Equal(got, expected) {
 		t.Errorf("got %v expected %v", got, expected)
