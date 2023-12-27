@@ -31,3 +31,17 @@ func (c Circle) Perimeter() float64 {
 func (c Circle) Area() float64 {
 	return math.Pi * c.Radius * c.Radius
 }
+
+type Triangle struct {
+	Base   float64
+	Height float64
+}
+
+func (t Triangle) Perimeter() float64 {
+	// https://math.stackexchange.com/a/80401
+	return t.Base + t.Height + math.Sqrt((t.Base*t.Base)+(t.Height*t.Height))
+}
+
+func (t Triangle) Area() float64 {
+	return t.Base * t.Height * 0.5
+}
