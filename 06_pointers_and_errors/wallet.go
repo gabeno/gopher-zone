@@ -13,7 +13,6 @@ type Wallet struct {
 }
 
 func (w *Wallet) Deposit(amount Bitcoin) {
-	fmt.Printf("address of balance in deposit is %p \n", &w.balance)
 	w.balance += amount
 }
 
