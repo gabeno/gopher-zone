@@ -2,7 +2,7 @@ package dictionary
 
 import "testing"
 
-func TestDictionary(t *testing.T) {
+func TestSearch(t *testing.T) {
 	dictionary := Dictionary{"test": "this is just a test"}
 
 	t.Run("existing word", func(t *testing.T) {
@@ -17,6 +17,19 @@ func TestDictionary(t *testing.T) {
 
 		assertError(t, err, ErrWordNotFound)
 	})
+}
+
+func TestAdd(t *testing.T) {
+	dictionary := Dictionary{}
+	dictionary.Add("test", "this is a test")
+	got, err := dictionary.Search("test")
+	want := "this is a test"
+
+	if err != nil {
+		t.Fatal("should find added word: ", err)
+	}
+
+	assertStrings(t, got, want)
 }
 
 func assertStrings(t testing.TB, got, want string) {
