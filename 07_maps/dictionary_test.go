@@ -40,6 +40,20 @@ func TestAdd(t *testing.T) {
 	})
 }
 
+func TestUpdate(t *testing.T) {
+	t.Run("update existing word", func(t *testing.T) {
+		word := "test"
+		definition := "this is a test"
+		dictionary := Dictionary{word: definition}
+		newDefinition := "new definition"
+
+		err := dictionary.Update(word, newDefinition)
+
+		assertError(t, err, nil)
+		assertDefinition(t, dictionary, word, newDefinition)
+	})
+}
+
 func assertStrings(t testing.TB, got, want string) {
 	if got != want {
 		t.Errorf("got %q want %q given %q", got, want, "test")
