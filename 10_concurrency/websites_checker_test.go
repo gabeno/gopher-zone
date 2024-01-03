@@ -3,6 +3,7 @@ package crawler
 import (
 	"reflect"
 	"testing"
+	"time"
 )
 
 func mockCheckWebsites(url string) bool {
@@ -26,5 +27,21 @@ func TestCheckWebsites(t *testing.T) {
 
 	if !reflect.DeepEqual(got, want) {
 		t.Fatalf("got %v want %v", got, want)
+	}
+}
+
+func slowStubWebsitesChecker(_ string) bool {
+	time.Sleep(20 * time.Millisecond)
+	return true
+}
+
+func BenchmarkCheckWebsites(b *testing.B) {
+	urls := make([]string, 100)
+	for i := 0; i < len(urls); i++ {
+		urls[i] = "a url"
+	}
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		CheckWebsites(slowStubWebsitesChecker, urls)
 	}
 }
