@@ -36,10 +36,10 @@ func TestWalk(t *testing.T) {
 		},
 		{
 			"nested fields",
-			struct {
-				Name    string
-				Profile Profile
-			}{"Chris", Profile{44, "London"}},
+			Person{
+				"Chris",
+				Profile{44, "London"},
+			},
 			[]string{"Chris", "London"},
 		},
 	}
