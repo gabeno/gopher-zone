@@ -10,6 +10,10 @@ difficulty level: recursively.
 
 package walk
 
+import "reflect"
+
 func walk(x interface{}, fn func(input string)) {
-	fn("hey yoda")
+	val := reflect.ValueOf(x)
+	field := val.Field(0)
+	fn(field.String())
 }
