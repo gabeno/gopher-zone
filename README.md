@@ -7,6 +7,7 @@
 3. [Errors in Go](https://dave.cheney.net/2016/04/27/dont-just-check-errors-handle-them-gracefully)
 4. [Maps are not reference types](https://dave.cheney.net/2017/04/30/if-a-map-isnt-a-reference-variable-what-is-it)
 5. [Constant Errors](https://dave.cheney.net/2016/04/07/constant-errors)
+6. [Laws of Reflection](https://go.dev/blog/laws-of-reflection)
 
 ### Language References
 
@@ -47,3 +48,13 @@ var dictionary = make(map[string]string)
 ```
 
 Both approaches create an empty hash map and point dictionary at it.
+
+- Go lets us get around this with the type `interface{}` which you can think of as just *any* type.
+
+_So why not use `interface{}` for everything and have really flexible functions?_
+
+As a user of a function that takes `interface{}` you lose type safety. What if you meant to pass `Herd.species` of type `string` into a function but instead did `Herd.count` which is an `int`? The compiler won't be able to inform you of your mistake. You also have no idea what you're allowed to pass to a function. Knowing that a function takes a `UserService` for instance is very useful.
+
+As a writer of such a function, you have to be able to inspect anything that has been passed to you and try and figure out what the type is and what you can do with it. This is done using reflection. This can be quite clumsy and difficult to read and is generally less performant (as you have to do checks at runtime).
+
+Use reflection if you really need to. If you want polymorphic functions, consider if you could design it around an interface (not `interface{}`, confusingly) so that users can use your function with multiple types if they implement whatever methods you need for your function to work.
