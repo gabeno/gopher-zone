@@ -58,3 +58,8 @@ As a user of a function that takes `interface{}` you lose type safety. What if y
 As a writer of such a function, you have to be able to inspect anything that has been passed to you and try and figure out what the type is and what you can do with it. This is done using reflection. This can be quite clumsy and difficult to read and is generally less performant (as you have to do checks at runtime).
 
 Use reflection if you really need to. If you want polymorphic functions, consider if you could design it around an interface (not `interface{}`, confusingly) so that users can use your function with multiple types if they implement whatever methods you need for your function to work.
+
+- [When to use locks over channels and goroutines?](https://quii.gitbook.io/learn-go-with-tests/go-fundamentals/sync#when-to-use-locks-over-channels-and-goroutines)
+
+  - use channels when passing ownership of data
+  - use mutexes for managing state 
