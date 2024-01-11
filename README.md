@@ -8,6 +8,9 @@
 4. [Maps are not reference types](https://dave.cheney.net/2017/04/30/if-a-map-isnt-a-reference-variable-what-is-it)
 5. [Constant Errors](https://dave.cheney.net/2016/04/07/constant-errors)
 6. [Laws of Reflection](https://go.dev/blog/laws-of-reflection)
+7. [Context](https://blog.golang.org/context)
+8. [Contexts should go away](https://faiface.github.io/post/context-should-go-away-go2/)
+9. [Using context correctly](https://medium.com/@cep21/how-to-correctly-use-context-context-in-go-1-7-8f2c0fafdf39)
 
 ### Language References
 
