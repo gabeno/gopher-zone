@@ -3,21 +3,23 @@ package romans
 import "testing"
 
 func TestRomanNumerals(t *testing.T) {
-	t.Run("1 converts to I", func(t *testing.T) {
-		got := ConvertToRomans(1)
-		want := "I"
+	cases := []struct {
+		Description     string
+		NumberToConvert int
+		Want            string
+	}{
+		{Description: "1 converts to I", NumberToConvert: 1, Want: "I"},
+		{Description: "2 converts to II", NumberToConvert: 2, Want: "II"},
+	}
 
-		if got != want {
-			t.Errorf("got %q want %q", got, want)
-		}
-	})
+	for _, test := range cases {
+		t.Run(test.Description, func(t *testing.T) {
+			got := ConvertToRomans(test.NumberToConvert)
+			want := test.Want
 
-	t.Run("2 converts to II", func(t *testing.T) {
-		got := ConvertToRomans(2)
-		want := "II"
-
-		if got != want {
-			t.Errorf("got %q want %q", got, want)
-		}
-	})
+			if got != want {
+				t.Errorf("got %q want %q", got, want)
+			}
+		})
+	}
 }
