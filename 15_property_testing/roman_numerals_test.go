@@ -1,26 +1,32 @@
 package romans
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestRomanNumerals(t *testing.T) {
 	cases := []struct {
-		Description     string
 		NumberToConvert int
 		Want            string
 	}{
-		{Description: "1 converts to I", NumberToConvert: 1, Want: "I"},
-		{Description: "2 converts to II", NumberToConvert: 2, Want: "II"},
-		{Description: "3 converts to III", NumberToConvert: 3, Want: "III"},
-		{Description: "4 converts to IV", NumberToConvert: 4, Want: "IV"},
-		{Description: "5 converts to V", NumberToConvert: 5, Want: "V"},
-		{Description: "6 converts to VI", NumberToConvert: 6, Want: "VI"},
-		{Description: "9 converts to IX", NumberToConvert: 9, Want: "IX"},
-		{Description: "10 converts to X", NumberToConvert: 10, Want: "X"},
-		{Description: "12 converts to XII", NumberToConvert: 12, Want: "XII"},
+		{NumberToConvert: 1, Want: "I"},
+		{NumberToConvert: 2, Want: "II"},
+		{NumberToConvert: 3, Want: "III"},
+		{NumberToConvert: 4, Want: "IV"},
+		{NumberToConvert: 5, Want: "V"},
+		{NumberToConvert: 6, Want: "VI"},
+		{NumberToConvert: 9, Want: "IX"},
+		{NumberToConvert: 10, Want: "X"},
+		{NumberToConvert: 12, Want: "XII"},
+		{NumberToConvert: 14, Want: "XIV"},
+		{NumberToConvert: 18, Want: "XVIII"},
+		{NumberToConvert: 20, Want: "XX"},
+		{NumberToConvert: 39, Want: "XXXIX"},
 	}
 
 	for _, test := range cases {
-		t.Run(test.Description, func(t *testing.T) {
+		t.Run(fmt.Sprintf("convert %d", test.NumberToConvert), func(t *testing.T) {
 			got := ConvertToRomans(test.NumberToConvert)
 			want := test.Want
 
