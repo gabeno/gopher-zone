@@ -1,11 +1,13 @@
 package romans
 
+import "strings"
+
 func ConvertToRomans(n int) string {
-	if n == 3 {
-		return "III"
+	var results strings.Builder
+
+	for i := 0; i < n; i++ {
+		results.WriteString("I")
 	}
-	if n == 2 {
-		return "II"
-	}
-	return "I"
+
+	return results.String()
 }
