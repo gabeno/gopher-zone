@@ -7,7 +7,7 @@ import (
 )
 
 var cases = []struct {
-	Arabic int
+	Arabic uint16
 	Roman  string
 }{
 	{Arabic: 1, Roman: "I"},
@@ -73,7 +73,11 @@ Testing properties of conversion:
 */
 
 func TestPropertiesOfConversion(t *testing.T) {
-	assertion := func(arabic int) bool {
+	assertion := func(arabic uint16) bool {
+		if arabic > 3999 {
+			return true
+		}
+		t.Log("testing", arabic)
 		roman := ConvertToRomans(arabic)
 		fromRoman := ConvertToArabic(roman)
 		return arabic == fromRoman
