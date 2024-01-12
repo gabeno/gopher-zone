@@ -3,6 +3,7 @@ package romans
 import (
 	"fmt"
 	"testing"
+	"testing/quick"
 )
 
 var cases = []struct {
@@ -61,5 +62,24 @@ func TestConvertToArabic(t *testing.T) {
 				t.Errorf("got %d want %d", got, test.Arabic)
 			}
 		})
+	}
+}
+
+/*
+Testing properties of conversion:
+- Can not have more than 3 consecutive symbols
+- Only I (1), X (10) and C (100) can be "subtractors"
+- Taking the result of ConvertToRoman(N) and passing it to ConvertToArabic should return us N
+*/
+
+func TestPropertiesOfConversion(t *testing.T) {
+	assertion := func(arabic int) bool {
+		roman := ConvertToRomans(arabic)
+		fromRoman := ConvertToArabic(roman)
+		return arabic == fromRoman
+	}
+
+	if err := quick.Check(assertion, nil); err != nil {
+		t.Error("failed checks", err)
 	}
 }
