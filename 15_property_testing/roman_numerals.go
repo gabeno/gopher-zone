@@ -2,26 +2,26 @@ package romans
 
 import "strings"
 
+type RomanNumeral struct {
+	Value  int
+	Symbol string
+}
+
+var allRomanNumerals = []RomanNumeral{
+	{10, "X"},
+	{9, "IX"},
+	{5, "V"},
+	{4, "IV"},
+	{1, "I"},
+}
+
 func ConvertToRomans(n int) string {
 	var results strings.Builder
 
-	for n > 0 {
-		switch {
-		case n > 9:
-			results.WriteString("X")
-			n -= 10
-		case n > 8:
-			results.WriteString("IX")
-			n -= 9
-		case n > 4:
-			results.WriteString("V")
-			n -= 5
-		case n > 3:
-			results.WriteString("IV")
-			n -= 4
-		default:
-			results.WriteString("I")
-			n--
+	for _, numeral := range allRomanNumerals {
+		for n >= numeral.Value {
+			results.WriteString(numeral.Symbol)
+			n -= numeral.Value
 		}
 	}
 
