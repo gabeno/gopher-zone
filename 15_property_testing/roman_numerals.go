@@ -2,12 +2,55 @@ package romans
 
 import "strings"
 
-type RomanNumeral struct {
+func ConvertToRomans(n int) string {
+	var results strings.Builder
+
+	for _, numeral := range allRomanNumerals {
+		for n >= numeral.Value {
+			results.WriteString(numeral.Symbol)
+			n -= numeral.Value
+		}
+	}
+
+	return results.String()
+}
+
+func ConvertToArabic(roman string) (total int) {
+	for _, symbols := range windowedRoman(roman).Symbols() {
+		total += allRomanNumerals.ValueOf(symbols...)
+	}
+	return
+}
+
+type romanNumeral struct {
 	Value  int
 	Symbol string
 }
 
-var allRomanNumerals = []RomanNumeral{
+type romanNumerals []romanNumeral
+
+func (r romanNumerals) ValueOf(symbols ...byte) int {
+	symbol := string(symbols)
+	for _, s := range r {
+		if s.Symbol == symbol {
+			return s.Value
+		}
+	}
+
+	return 0
+}
+
+func (r romanNumerals) Exists(symbols ...byte) bool {
+	symbol := string(symbols)
+	for _, s := range r {
+		if s.Symbol == symbol {
+			return true
+		}
+	}
+	return false
+}
+
+var allRomanNumerals = romanNumerals{
 	{1000, "M"},
 	{900, "CM"},
 	{500, "D"},
@@ -24,23 +67,23 @@ var allRomanNumerals = []RomanNumeral{
 	{1, "I"},
 }
 
-func ConvertToRomans(n int) string {
-	var results strings.Builder
+type windowedRoman string
 
-	for _, numeral := range allRomanNumerals {
-		for n >= numeral.Value {
-			results.WriteString(numeral.Symbol)
-			n -= numeral.Value
+func (w windowedRoman) Symbols() (symbols [][]byte) {
+	for i := 0; i < len(w); i++ {
+		symbol := w[i]
+		notAtEnd := i+1 < len(w)
+
+		if notAtEnd && isSubtractive(symbol) && allRomanNumerals.Exists(symbol, w[i+1]) {
+			symbols = append(symbols, []byte{symbol, w[i+1]})
+			i++
+		} else {
+			symbols = append(symbols, []byte{symbol})
 		}
 	}
-
-	return results.String()
+	return
 }
 
-func ConvertToArabic(s string) int {
-	total := 0
-	for range s {
-		total++
-	}
-	return total
+func isSubtractive(symbol uint8) bool {
+	return symbol == 'I' || symbol == 'X' || symbol == 'C'
 }
