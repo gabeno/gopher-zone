@@ -13,19 +13,22 @@ func TestAssertFunctions(t *testing.T) {
 		AssertNotEqual(t, "gabe", "gobe")
 	})
 
-	t.Run("assert different types", func(t *testing.T) {
-		AssertEqual(t, 1, "1")
-	})
+	// error: mismatched types untyped int and untyped string (cannot infer T)
+	/*
+		t.Run("assert different types", func(t *testing.T) {
+			AssertEqual(t, 1, "1")
+		})
+	*/
 }
 
-func AssertEqual(t testing.TB, got, want interface{}) {
+func AssertEqual[T comparable](t testing.TB, got, want T) {
 	if got != want {
-		t.Errorf("got %+v want %+v", got, want)
+		t.Errorf("got %v want %v", got, want)
 	}
 }
 
-func AssertNotEqual(t testing.TB, got, want interface{}) {
+func AssertNotEqual[T comparable](t testing.TB, got, want T) {
 	if got == want {
-		t.Errorf("did not want %+v", got)
+		t.Errorf("did not want %v", got)
 	}
 }
