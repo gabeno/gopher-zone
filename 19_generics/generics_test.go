@@ -12,6 +12,10 @@ func TestAssertFunctions(t *testing.T) {
 		AssertEqual(t, "gabe", "gabe")
 		AssertNotEqual(t, "gabe", "gobe")
 	})
+
+	t.Run("assert different types", func(t *testing.T) {
+		AssertEqual(t, 1, "1")
+	})
 }
 
 func AssertEqual(t testing.TB, got, want interface{}) {
