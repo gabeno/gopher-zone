@@ -1,30 +1,35 @@
 package sum
 
 func Sum(numbers []int) int {
-	sum := 0
-	for _, number := range numbers {
-		sum += number
-	}
-	return sum
+	add := func(res, x int) int { return res + x }
+	return Reduce(numbers, add, 0)
 }
 
 func SumAll(numbersToSum ...[]int) []int {
-	var sums []int
-	for _, numbers := range numbersToSum {
-		sums = append(sums, Sum(numbers))
+	fn := func(res, x []int) []int {
+		res = append(res, Sum(x))
+		return res
 	}
-	return sums
+	return Reduce(numbersToSum, fn, []int{})
 }
 
 func SumAllTails(numbersToSum ...[]int) []int {
-	var sums []int
-	for _, numbers := range numbersToSum {
-		if len(numbers) == 0 {
-			sums = append(sums, 0)
+	fn := func(res, x []int) []int {
+		if len(x) == 0 {
+			res = append(res, 0)
 		} else {
-			tail := numbers[1:]
-			sums = append(sums, Sum(tail))
+			tail := x[1:]
+			res = append(res, Sum(tail))
 		}
+		return res
 	}
-	return sums
+	return Reduce(numbersToSum, fn, []int{})
+}
+
+func Reduce[T any](collection []T, accumulator func(T, T) T, initialValue T) T {
+	var result = initialValue
+	for _, n := range collection {
+		result = accumulator(result, n)
+	}
+	return result
 }
