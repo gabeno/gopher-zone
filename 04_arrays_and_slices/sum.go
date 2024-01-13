@@ -6,15 +6,15 @@ func Sum(numbers []int) int {
 }
 
 func SumAll(numbersToSum ...[]int) []int {
-	fn := func(res, x []int) []int {
+	sumAll := func(res, x []int) []int {
 		res = append(res, Sum(x))
 		return res
 	}
-	return Reduce(numbersToSum, fn, []int{})
+	return Reduce(numbersToSum, sumAll, []int{})
 }
 
 func SumAllTails(numbersToSum ...[]int) []int {
-	fn := func(res, x []int) []int {
+	sumTail := func(res, x []int) []int {
 		if len(x) == 0 {
 			res = append(res, 0)
 		} else {
@@ -23,7 +23,7 @@ func SumAllTails(numbersToSum ...[]int) []int {
 		}
 		return res
 	}
-	return Reduce(numbersToSum, fn, []int{})
+	return Reduce(numbersToSum, sumTail, []int{})
 }
 
 func Reduce[T any](collection []T, accumulator func(T, T) T, initialValue T) T {
