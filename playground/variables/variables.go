@@ -12,6 +12,10 @@ func main() {
 	var a = "inital"
 	fmt.Println(a)
 
+	// reassign a variable
+	a = "edited"
+	fmt.Println(a)
+
 	// declare multiple variables
 	var x, c int = 1, 2
 	fmt.Println(x, c)
@@ -23,6 +27,10 @@ func main() {
 	// := syntax for declaring and initializing a variable -> short declaration
 	// variable values already known
 	e := "apple"
+	fmt.Println(e)
+
+	// reassign a variable
+	e = "pears"
 	fmt.Println(e)
 
 	// we can redeclare existing variables as we create new ones
