@@ -12,6 +12,7 @@ type ServerState int
 
 // possible values of ServerState are defined as constants
 // iota generates successive constant values automatically eg 0, 1, 2 etc
+// iota is number generator for constants, it starts at zero
 const (
 	StateIdle ServerState = iota
 	StateConnected

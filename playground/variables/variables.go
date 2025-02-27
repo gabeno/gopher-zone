@@ -16,6 +16,10 @@ func main() {
 	a = "edited"
 	fmt.Println(a)
 
+	// concatenate variable with additional string
+	a = a + " and concatenated"
+	fmt.Println(a)
+
 	// declare multiple variables
 	var x, c int = 1, 2
 	fmt.Println(x, c)
@@ -66,11 +70,12 @@ func main() {
 	// create a new values changing from one type to another
 	speed := 100 // int
 	force := 2.5 // float64
-
 	// => 200, lost precision due to rounding down during int to float conversion
 	fmt.Println("speed * force =", speed*int(force))
 	fmt.Println(force, int(force))
-
 	// => 250,
 	fmt.Println("speed * force =", float64(speed)*force)
+
+	k, w := 10, 5.5
+	fmt.Println(float64(k) + w)
 }

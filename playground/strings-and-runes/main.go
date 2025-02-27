@@ -15,8 +15,16 @@ func main() {
 	// go string literals are utf8 encoded
 	const s = "สวัสดี"
 
+	// raw string literal vs string literal
+	fmt.Println(`
+<html>
+	<body>"Hello"</body>
+</html>`) // raw string literal: no need for escape sequences, more readable in code
+	fmt.Println("<html>\n\t<body>\"Hello\"</body>\n</html>") // string literal: need escape sequences,
+
 	// strings are equivalent to []byte
 	// length of raw bytes stored in s
+	// len returns number of bytes in a string
 	fmt.Println("len:", len(s))
 
 	// raw byte values at each index
@@ -25,7 +33,7 @@ func main() {
 	}
 	fmt.Println()
 
-	// count runes in string
+	// count runes in string aka code points
 	// runtime depends on size of string coz decodes each utf8 rune sequentially
 	// characters are represented by utf8 code points that span multiple bytes
 	fmt.Println("rune count:", utf8.RuneCountInString(s))
