@@ -51,6 +51,8 @@ func main() {
 	}
 	close(burstRequests)
 
+	// first 3 requests served immediately because of burstable rate limiting
+	// then remaining 2 served with 200ms delay each
 	for req := range burstRequests {
 		<-burstyLimiter
 		fmt.Println("request", req, time.Now())
