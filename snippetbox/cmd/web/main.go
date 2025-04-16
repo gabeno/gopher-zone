@@ -1,11 +1,19 @@
 package main
 
 import (
+	"flag"
 	"log"
+	"log/slog"
 	"net/http"
+	"os"
 )
 
 func main() {
+	addr := flag.String("addr", ":4000", "HTTP network address")
+	flag.Parse()
+
+	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+
 	mux := http.NewServeMux()
 
 	// create a file server
@@ -18,8 +26,10 @@ func main() {
 	mux.HandleFunc("GET /snippet/create", snippetCreate)
 	mux.HandleFunc("POST /snippet/create", snippetCreatePost)
 
-	log.Print("starting server on :4000")
+	logger.Info("starting server", slog.Any("addr", *addr))
 
-	err := http.ListenAndServe(":4000", mux)
+	err := http.ListenAndServe(*addr, mux)
 	log.Fatal(err)
+	logger.Error(err.Error())
+	os.Exit(1)
 }
