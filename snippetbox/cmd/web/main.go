@@ -8,10 +8,6 @@ import (
 	"os"
 )
 
-type application struct {
-	logger *slog.Logger
-}
-
 func main() {
 	addr := flag.String("addr", ":4000", "HTTP network address")
 	flag.Parse()
@@ -21,9 +17,7 @@ func main() {
 		AddSource: true,
 	}))
 
-	app := &application{
-		logger: logger,
-	}
+	app := NewApplication(logger)
 
 	logger.Info("starting server", slog.Any("addr", *addr))
 

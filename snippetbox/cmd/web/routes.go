@@ -2,13 +2,8 @@ package main
 
 import "net/http"
 
-func (app *application) routes() *http.ServeMux {
+func (app *Application) routes() *http.ServeMux {
 	mux := http.NewServeMux()
-
-	// create a file server
-	fileServer := http.FileServer(http.Dir("./ui/static/"))
-
-	mux.Handle("GET /static/", http.StripPrefix("/static", fileServer))
 
 	mux.HandleFunc("GET /{$}", app.home)
 	mux.HandleFunc("GET /snippet/view/{id}", app.snippetView)
